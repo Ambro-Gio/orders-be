@@ -20,7 +20,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Returns an Order with its associated products
+     * Returns an Order with its associated products.
      * 
      * @param int $id
      * 
@@ -40,6 +40,25 @@ class OrderController extends Controller
             "description" => $order->description,
             "products" => $order->products
         ]);
+    }
+
+    /**
+     * Deletes and order.
+     * @param int $id
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id){
+
+        $order = Order::find($id);
+
+        if(!$order){
+            return $this->error("Order not found");
+        }
+
+        $order->delete();
+
+        return $this->ok("Order deleted");
     }
 
 }
