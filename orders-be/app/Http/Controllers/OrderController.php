@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Traits\ApiResponses;
 use App\Http\Resources\OrderCollection;
+use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
 {
@@ -68,12 +68,7 @@ class OrderController extends Controller
             return $this->error("Order not found");
         }
 
-        return $this->ok([
-            "ID" => $order->id,
-            "name" => $order->name,
-            "description" => $order->description,
-            "products" => $order->products
-        ]);
+        return new OrderResource($order);
     }
 
     /**
