@@ -70,6 +70,18 @@ class OrderController extends Controller
 
         return new OrderResource($order);
     }
+    
+    /**
+     * Creates a new order
+     * 
+     * @param App\Http\Requests\StoreOrderRequest;
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(StoreOrderRequest $request){
+
+        return new OrderResource(Order::create($request->all()));
+    }
 
     /**
      * Deletes an order.
