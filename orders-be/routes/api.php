@@ -7,4 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'login']);
 
-Route::get('/orders', [OrderController::class, 'index']);
+Route::controller(OrderController::class)->group( function () {
+    Route::get('/orders', 'index');
+    Route::get('/orders/{id}', 'show');
+});

@@ -16,6 +16,30 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return $this->ok(Order::all()->toJson());
+        return $this->ok(Order::all());
     }
+
+    /**
+     * Returns an Order with its associated products
+     * 
+     * @param int $id
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id){
+
+        $order = Order::find($id);
+
+        if(!$order){
+            return $this->error("Order not found");
+        }
+
+        return $this->ok([
+            "ID" => $order->id,
+            "name" => $order->name,
+            "description" => $order->description,
+            "products" => $order->products
+        ]);
+    }
+
 }
