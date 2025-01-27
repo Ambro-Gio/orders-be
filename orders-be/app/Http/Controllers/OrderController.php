@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Traits\ApiResponses;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -16,7 +17,39 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return $this->ok(Order::all());
+        request()->validate([
+            'date_start' => [
+                'bail',
+                'date_format:Y-m-d\TH:i:s.u\Z',
+            ],
+            'date_end' => [
+                'bail',
+                'date_format:Y-m-d\TH:i:s.u\Z',
+                'after:date_start'
+            ],
+            'name' => ['bail', 'string'],
+            'description' => ['bail', 'string'],
+        ]);
+
+        $dateStart = request()->query('date_start');
+        $dateEnd = request()->query('date_end');
+        $name = request()->query('name');
+        $description = request()->query('description');
+
+        $orders = Order::when($dateStart, function ($query, $dateStart) {
+            $query->where('date', '>=', $dateStart);
+        })->when(
+            $dateEnd,
+            function ($query, $dateEnd) {
+                $query->where('date', '<=', $dateEnd);
+            }
+        )->when($name, function ($query, $name) {
+            $query->where('name', 'like', "%{$name}%");
+        })->when($description, function ($query, $description) {
+            $query->where('description', 'like', "%{$description}%");
+        })->get();
+
+        return $this->ok($orders);
     }
 
     /**
@@ -26,11 +59,12 @@ class OrderController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id){
+    public function show($id)
+    {
 
-        $order = Order::find($id);
+        $order = Order::with('products')->find($id);
 
-        if(!$order){
+        if (!$order) {
             return $this->error("Order not found");
         }
 
@@ -48,11 +82,12 @@ class OrderController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $order = Order::find($id);
 
-        if(!$order){
+        if (!$order) {
             return $this->error("Order not found");
         }
 
@@ -60,5 +95,4 @@ class OrderController extends Controller
 
         return $this->ok("Order deleted");
     }
-
 }
