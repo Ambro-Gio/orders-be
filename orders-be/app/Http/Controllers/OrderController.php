@@ -6,7 +6,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
 use App\Traits\ApiResponses;
-use Illuminate\Http\Request;
+use App\Http\Resources\OrderCollection;
 
 class OrderController extends Controller
 {
@@ -47,9 +47,9 @@ class OrderController extends Controller
             $query->where('name', 'like', "%{$name}%");
         })->when($description, function ($query, $description) {
             $query->where('description', 'like', "%{$description}%");
-        })->get();
+        })->paginate();
 
-        return $this->ok($orders);
+        return new OrderCollection($orders);
     }
 
     /**
@@ -77,7 +77,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Deletes and order.
+     * Deletes an order.
      * @param int $id
      * 
      * @return \Illuminate\Http\JsonResponse
