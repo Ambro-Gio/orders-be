@@ -9,6 +9,7 @@ use App\Models\Stock;
 use App\Traits\ApiResponses;
 use App\Http\Resources\OrderCollection;
 use App\Http\Resources\OrderResource;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -115,17 +116,49 @@ class OrderController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function delete(Order $order)
     {
+        try {
+            return DB::transaction(function () use ($order) {
 
-        $order = Order::find($id);
+                foreach($order->products as $product){
+                    $quantity = $product->pivot->quantity;
 
-        if (!$order) {
-            return $this->error("Order not found");
+                    Stock::where('product_id', $product->id)
+                        ->increment('stock_quantity', $quantity);
+                }
+
+                $order->delete();
+
+                return $this->ok("OK");
+            });
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), 400);
         }
+    }
 
-        $order->delete();
+    public function deleteProduct(Order $order, Product $product)
+    {
+        try {
+            DB::transaction(function () use ($order, $product) {
+                // Check if the product exists in the order
+                $pivotRow = $order->products()
+                    ->where('product_id', $product->id)
+                    ->first();
 
-        return $this->ok("Order deleted");
+                if (!$pivotRow) {
+                    throw new \Exception("Product not found in the order.");
+                }
+
+                $quantity = $pivotRow->pivot->quantity;
+                $order->products()->detach($product->id);
+                Stock::where('product_id', $product->id)
+                    ->increment('stock_quantity', $quantity);
+            });
+
+            return $this->ok("OK");
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage());
+        }
     }
 }
