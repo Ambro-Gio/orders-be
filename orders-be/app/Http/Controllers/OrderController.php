@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexOrderRequest;
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
 use App\Traits\ApiResponses;
@@ -15,26 +16,13 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(IndexOrderRequest $request)
     {
-        request()->validate([
-            'date_start' => [
-                'bail',
-                'date_format:Y-m-d\TH:i:s.u\Z',
-            ],
-            'date_end' => [
-                'bail',
-                'date_format:Y-m-d\TH:i:s.u\Z',
-                'after:date_start'
-            ],
-            'name' => ['bail', 'string'],
-            'description' => ['bail', 'string'],
-        ]);
 
-        $dateStart = request()->query('date_start');
-        $dateEnd = request()->query('date_end');
-        $name = request()->query('name');
-        $description = request()->query('description');
+        $dateStart = $request->query('date_start');
+        $dateEnd = $request->query('date_end');
+        $name = $request->query('name');
+        $description = $request->query('description');
 
         $orders = Order::when($dateStart, function ($query, $dateStart) {
             $query->where('date', '>=', $dateStart);
@@ -70,7 +58,7 @@ class OrderController extends Controller
 
         return new OrderResource($order);
     }
-    
+
     /**
      * Creates a new order
      * 
@@ -78,10 +66,12 @@ class OrderController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreOrderRequest $request){
-
+    public function store(StoreOrderRequest $request)
+    {
         return new OrderResource(Order::create($request->all()));
     }
+
+    public function update(StoreOrderRequest $request) {}
 
     /**
      * Deletes an order.
