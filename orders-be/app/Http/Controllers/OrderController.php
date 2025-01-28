@@ -105,7 +105,8 @@ class OrderController extends Controller
      */
     public function update(StoreOrderRequest $request, Order $order)
     {
-        $order->update($request->all());
+        $order->update($request->only(['name', 'description']));
+        return $this->ok("OK");
     }
 
     /**
