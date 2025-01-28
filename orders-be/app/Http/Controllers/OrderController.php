@@ -118,14 +118,13 @@ class OrderController extends Controller
      */
     public function delete(Order $order)
     {
+
         try {
             return DB::transaction(function () use ($order) {
 
                 foreach($order->products as $product){
-                    $quantity = $product->pivot->quantity;
-
-                    Stock::where('product_id', $product->id)
-                        ->increment('stock_quantity', $quantity);
+                    $orderQuantity = $product->pivot->quantity;
+                    $product->stock->increment('stock_quantity', $orderQuantity);
                 }
 
                 $order->delete();
