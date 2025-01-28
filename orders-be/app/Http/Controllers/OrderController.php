@@ -22,7 +22,7 @@ class OrderController extends Controller
      * 
      * @param App\Http\Requests\IndexOrderRequest;
      * 
-     * @return \Illuminate\Http\JsonRespons
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(IndexOrderRequest $request)
     {
