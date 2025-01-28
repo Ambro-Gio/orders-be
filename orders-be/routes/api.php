@@ -22,5 +22,4 @@ Route::controller(ProductController::class)->group( function () {
     Route::get('/products/{product}', 'show');
     Route::post('/products', 'store');
     Route::put('/products/{product}', 'update');
-    Route::delete('/products/{product}', 'delete');
 });

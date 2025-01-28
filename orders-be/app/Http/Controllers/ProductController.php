@@ -7,6 +7,7 @@ use App\Http\Resources\AvailableProductResource;
 use App\Models\Product;
 use App\Models\Stock;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Traits\ApiResponses;
 use Illuminate\Support\Facades\DB;
 
@@ -68,6 +69,28 @@ class ProductController extends Controller
                 }
 
                 return new AvailableProductCollection($createdProducts);
+            });
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), 400);
+        }
+    }
+
+    /**
+     * updates a product and its associated stock availability
+     * 
+     * @param App\Http\Requests\UpdateProductRequest $request
+     * @param \App\Models\Product $product
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateProductRequest $request, Product $product){
+
+        try{
+            return DB::transaction(function () use ($request, $product) {
+                $product->update($request->only("name", "price"));
+                $product->stock->update(["stock_quantity" => $request->quantity]);
+
+                return $this->ok("OK");
             });
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), 400);
