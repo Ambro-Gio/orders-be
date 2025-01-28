@@ -25,6 +25,9 @@ class StoreOrderRequest extends FormRequest
         return [
             'name' => ['bail', 'required', 'string'],
             'description' => ['nullable', 'string'],
+            'products' => ['nullable', 'array'],
+            'products.*.ID' => ['required_with:products', 'exists:products,id'],
+            'products.*.quantity' => ['required_with:products', 'integer', 'min:1'],
         ];
     }
 }

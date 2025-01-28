@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\IndexOrderRequest;
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
+use App\Models\Stock;
 use App\Traits\ApiResponses;
 use App\Http\Resources\OrderCollection;
 use App\Http\Resources\OrderResource;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -53,7 +55,8 @@ class OrderController extends Controller
     }
 
     /**
-     * Creates a new order
+     * Creates a new order.
+     * Accepts an optional array of products to be attached.
      * 
      * @param App\Http\Requests\StoreOrderRequest;
      * 
@@ -61,7 +64,36 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        return new OrderResource(Order::create($request->all()));
+        try {
+            return DB::transaction(function () use ($request) {
+
+                $order = Order::create($request->only(['name', 'description']));
+
+                // Attach products if provided
+                if ($request->has('products')) {
+                    $products = collect($request->products)->mapWithKeys(function ($product) {
+
+                        // Trying to decrement stock quantity by the requested quantiy -> failure means insufficient stock, transaction is aborted.
+                        // This ensures correct functionality against race conditions.
+                        $updatedRows = Stock::where('product_id', $product['ID'])
+                            ->where('stock_quantity', '>=', $product['quantity'])
+                            ->decrement('stock_quantity', $product['quantity']);
+
+                        if ($updatedRows === 0) {
+                            throw new \Exception("Insufficient stock for product ID: {$product['ID']}");
+                        }
+
+                        return [$product['ID'] => ['quantity' => $product['quantity']]];
+                    });
+
+                    $order->products()->attach($products);
+                }
+
+                return new OrderResource($order->load('products'));
+            });
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), 400);
+        }
     }
 
     /**
@@ -71,7 +103,8 @@ class OrderController extends Controller
      * 
      * @return \Illuminate\Http\JsonRespons
      */
-    public function update(StoreOrderRequest $request, Order $order) {
+    public function update(StoreOrderRequest $request, Order $order)
+    {
         $order->update($request->all());
     }
 

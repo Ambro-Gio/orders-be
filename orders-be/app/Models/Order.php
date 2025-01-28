@@ -19,7 +19,4 @@ class Order extends Model
     public function products(){
         return $this->belongsToMany(Product::class)->withPivot('quantity');
     }
-
-    // $order->products()->attach(App\Models\Product::find(7));
-    // this will be used in the edit and create method
 }
