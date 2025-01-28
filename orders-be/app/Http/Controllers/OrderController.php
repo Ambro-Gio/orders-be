@@ -47,16 +47,9 @@ class OrderController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Order $order)
     {
-
-        $order = Order::with('products')->find($id);
-
-        if (!$order) {
-            return $this->error("Order not found");
-        }
-
-        return new OrderResource($order);
+        return new OrderResource($order->load('products'));
     }
 
     /**
@@ -71,7 +64,16 @@ class OrderController extends Controller
         return new OrderResource(Order::create($request->all()));
     }
 
-    public function update(StoreOrderRequest $request) {}
+    /**
+     * Updates an existing order.
+     * 
+     * @param App\Http\Requests\StoreOrderRequest;
+     * 
+     * @return \Illuminate\Http\JsonRespons
+     */
+    public function update(StoreOrderRequest $request, Order $order) {
+        $order->update($request->all());
+    }
 
     /**
      * Deletes an order.

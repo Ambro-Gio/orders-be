@@ -9,7 +9,8 @@ Route::get('/login', [AuthController::class, 'login']);
 
 Route::controller(OrderController::class)->group( function () {
     Route::get('/orders', 'index');
-    Route::get('/orders/{id}', 'show');
+    Route::get('/orders/{order}', 'show');
     Route::post('/orders', 'store');
+    Route::put('/orders/{order}', 'update');
     Route::delete('/orders/{id}', 'destroy');
 });
