@@ -32,18 +32,19 @@ class OrderController extends Controller
         $name = $request->query('name');
         $description = $request->query('description');
 
-        $orders = Order::when($dateStart, function ($query, $dateStart) {
-            $query->where('date', '>=', $dateStart);
-        })->when(
-            $dateEnd,
-            function ($query, $dateEnd) {
-                $query->where('date', '<=', $dateEnd);
-            }
-        )->when($name, function ($query, $name) {
-            $query->where('name', 'like', "%{$name}%");
-        })->when($description, function ($query, $description) {
-            $query->where('description', 'like', "%{$description}%");
-        })->orderBy('date', 'DESC')->paginate();
+        $orders = Order::where('user_id', auth()->id())
+            ->when($dateStart, function ($query, $dateStart) {
+                $query->where('date', '>=', $dateStart);
+            })->when(
+                $dateEnd,
+                function ($query, $dateEnd) {
+                    $query->where('date', '<=', $dateEnd);
+                }
+            )->when($name, function ($query, $name) {
+                $query->where('name', 'like', "%{$name}%");
+            })->when($description, function ($query, $description) {
+                $query->where('description', 'like', "%{$description}%");
+            })->orderBy('date', 'DESC')->paginate();
 
         return new OrderCollection($orders);
     }
@@ -57,6 +58,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        if ($order->user_id !== auth()->id())
+            return $this->error("unauthorized", 400);
+
         return new OrderResource($order->load('products'));
     }
 
@@ -72,8 +76,11 @@ class OrderController extends Controller
     {
         try {
             return DB::transaction(function () use ($request) {
-
-                $order = Order::create($request->only(['name', 'description']));
+                $order = Order::create([
+                    "name" => $request->name,
+                    "description" => $request->description,
+                    "user_id" => auth()->id(),
+                ]);
 
                 if (!$request->has('products')) {
                     return new OrderResource($order);
@@ -113,6 +120,9 @@ class OrderController extends Controller
      */
     public function update(StoreOrderRequest $request, Order $order)
     {
+        if ($order->user_id !== auth()->id())
+            return $this->error("unauthorized", 400);
+
         $order->update($request->only(['name', 'description']));
         return $this->ok("OK");
     }
@@ -127,6 +137,10 @@ class OrderController extends Controller
      */
     public function addProduct(AddProductRequest $request, Order $order)
     {
+
+        if ($order->user_id !== auth()->id())
+            return $this->error("unauthorized", 400);
+
         try {
             DB::transaction(function () use ($order, $request) {
 
@@ -171,6 +185,9 @@ class OrderController extends Controller
     public function delete(Order $order)
     {
 
+        if ($order->user_id !== auth()->id())
+            return $this->error("unauthorized", 400);
+
         try {
             return DB::transaction(function () use ($order) {
 
@@ -199,6 +216,9 @@ class OrderController extends Controller
      */
     public function deleteProduct(Order $order, Product $product)
     {
+        if ($order->user_id !== auth()->id())
+            return $this->error("unauthorized", 400);
+        
         try {
             DB::transaction(function () use ($order, $product) {
                 // Check if the product exists in the order

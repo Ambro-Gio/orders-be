@@ -14,7 +14,7 @@ class Order extends Model
     const UPDATED_AT = null;
 
     protected $table = "order";
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'user_id'];
 
     public function products(){
         return $this->belongsToMany(Product::class)->withPivot('quantity');
