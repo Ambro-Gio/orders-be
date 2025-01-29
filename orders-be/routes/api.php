@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Middleware\checkUserRole;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'login']);
@@ -20,7 +21,7 @@ Route::controller(OrderController::class)
     });
 
 Route::controller(ProductController::class)
-    ->middleware('auth:sanctum')
+    ->middleware(['auth:sanctum', checkUserRole::class . ':products'])
     ->group(function () {
         Route::get('/products', 'index');
         Route::get('/products/{product}', 'show');
