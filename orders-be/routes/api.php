@@ -19,7 +19,7 @@ Route::controller(OrderController::class)
     });
 
 Route::controller(ProductController::class)
-    ->middleware(['auth:sanctum', checkUserRole::class . ':admin'])
+    ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/products', 'index');
         Route::get('/products/{product}', 'show');
