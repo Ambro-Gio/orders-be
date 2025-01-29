@@ -12,14 +12,14 @@ Route::get('/', function () {
 //quick and dirty stub method to generate a token
 Route::get('/setup', function(){
     $credentials = [
-        'email' => 'gambrosi2@test.com',
+        'email' => 'gambrosi4@test.com',
         'password' => 'password',
     ];
 
     if(!Auth::attempt($credentials)){
         $user = new \App\Models\User();
 
-        $user->name = "gambrosi2";
+        $user->name = "gambrosi4";
         $user->email = $credentials["email"];
         $user->password = Hash::make($credentials["password"]);
 
@@ -28,8 +28,9 @@ Route::get('/setup', function(){
         if(Auth::attempt($credentials)){
             $user = Auth::user();
 
-            $adminToken = $user->createToken('admin-token');
-            return $adminToken->plainTextToken;
+            $adminToken = $user->createToken('admin-token', ['products']);
+            $normalToken = $user->createToken('normal-token', ['none']);
+            return [$adminToken->plainTextToken, $normalToken->plainTextToken];
         }
     }
 });

@@ -19,9 +19,11 @@ Route::controller(OrderController::class)
         Route::delete('/orders/{order}/products/{product}', 'deleteProduct');
     });
 
-Route::controller(ProductController::class)->group(function () {
-    Route::get('/products', 'index');
-    Route::get('/products/{product}', 'show');
-    Route::post('/products', 'store');
-    Route::put('/products/{product}', 'update');
-});
+Route::controller(ProductController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('/products', 'index');
+        Route::get('/products/{product}', 'show');
+        Route::post('/products', 'store');
+        Route::put('/products/{product}', 'update');
+    });
