@@ -1,12 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\checkUserRole;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/login', [AuthController::class, 'login']);
 
 Route::controller(OrderController::class)
     ->middleware('auth:sanctum')
@@ -21,10 +19,13 @@ Route::controller(OrderController::class)
     });
 
 Route::controller(ProductController::class)
-    ->middleware(['auth:sanctum', checkUserRole::class . ':products'])
+    ->middleware(['auth:sanctum', checkUserRole::class . ':admin'])
     ->group(function () {
         Route::get('/products', 'index');
         Route::get('/products/{product}', 'show');
         Route::post('/products', 'store');
         Route::put('/products/{product}', 'update');
     });
+
+
+Route::post("/users", [UserController::class, "store"]);
