@@ -10,11 +10,19 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Traits\ApiResponses;
 use Illuminate\Support\Facades\DB;
+use App\Services\ProductService;
 
 class ProductController extends Controller
 {
     use ApiResponses;
 
+    protected ProductService $productService;
+
+    //ProductService injection
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -55,42 +63,10 @@ class ProductController extends Controller
             return DB::transaction(function () use ($request) {
                 $createdProducts = [];
                 foreach ($request->products as $data) {
-
-                    $product = Product::create([
-                        "name" => $data["name"],
-                        "price" => $data["price"],
-                    ]);
-                    Stock::create([
-                        "product_id" => $product->id,
-                        "stock_quantity" => $data["quantity"] ?? 0,
-                    ]);
-
-                    $createdProducts[] = $product;
+                    $createdProducts[] = $this->productService->createProduct($data);
                 }
 
                 return new AvailableProductCollection($createdProducts);
-            });
-        } catch (\Exception $e) {
-            return $this->error($e->getMessage(), 400);
-        }
-    }
-
-    /**
-     * updates a product and its associated stock availability
-     * 
-     * @param App\Http\Requests\UpdateProductRequest $request
-     * @param \App\Models\Product $product
-     * 
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(UpdateProductRequest $request, Product $product){
-
-        try{
-            return DB::transaction(function () use ($request, $product) {
-                $product->update($request->only("name", "price"));
-                $product->stock->update(["stock_quantity" => $request->quantity]);
-
-                return $this->ok("OK");
             });
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), 400);
