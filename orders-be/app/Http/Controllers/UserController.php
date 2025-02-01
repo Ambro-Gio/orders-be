@@ -12,10 +12,20 @@ class UserController extends Controller
 {
     use ApiResponses;
 
-    public function store(StoreUserRequest $request){
+    /**
+     * Creates a new user.
+     * Returns the user access token.
+     * 
+     * @param \App\Http\Requests\StoreUserRequest $request
+     * 
+     * @return array
+     */
+    public function store(StoreUserRequest $request)
+    {
 
-        if( Auth::attempt($request->credentials))
-            return $this->error("user already exists");
+        if (Auth::attempt($request->credentials))
+            // Note: this is, of course, a huge security issue. A real application would implement proper login and register functionality.
+            return $this->error("user already exists", 400);
 
         User::create([
             "name" => $request->name,
@@ -23,14 +33,19 @@ class UserController extends Controller
             "password" => Hash::make($request->credentials["password"]),
         ]);
 
-        if( !Auth::attempt($request->credentials))
+        if (!Auth::attempt($request->credentials))
             return $this->error("failed login");
-        
+
         $user = Auth::user();
 
         //creating token based on given role
         $token = $user->createToken('admin-token', [$request->role]);
 
-        return $this->ok($token->plainTextToken);
-    }  
+        return $this->data(
+            [
+                "token" => $token->plainTextToken,
+                "role" => $request->role,
+            ]
+        );
+    }
 }

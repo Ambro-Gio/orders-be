@@ -2,7 +2,8 @@
 
 namespace App\Traits;
 
-trait ApiResponses{
+trait ApiResponses
+{
 
     /**
      * Returns a JSON response with status 200.
@@ -10,23 +11,37 @@ trait ApiResponses{
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function ok($message){
+    protected function ok($message)
+    {
         return $this->success($message, 200);
     }
 
     /**
-     * Returns a JSON response with status between 200-299.
+     * Returns a JSON success message with status between 200-299.
      * 
      * @param mixed $message
      * @param int $statusCode
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function success($message, $statusCode = 200){
+    protected function success($message, $statusCode = 200)
+    {
         return response()->json([
-            'message' => $message, 
-            'status' => $statusCode
+            'message' => $message,
         ], $statusCode);
+    }
+
+    /**
+     * Returns a JSON response with given status
+     * 
+     * @param mixed $data
+     * @param int $statusCode
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function data($data, $statusCode = 200)
+    {
+        return response()->json($data, $statusCode);
     }
 
     /**
@@ -37,9 +52,10 @@ trait ApiResponses{
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function error($errorMessage, $statusCode = 404){
+    protected function error($errorMessage, $statusCode = 404)
+    {
         return response()->json([
-            'error' => $errorMessage, 
+            'error' => $errorMessage,
             'status' => $statusCode
         ], $statusCode);
     }
