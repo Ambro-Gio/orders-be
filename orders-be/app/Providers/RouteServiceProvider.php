@@ -5,10 +5,13 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Route;
 use App\Models\Order;
 use App\Models\Product;
+use App\Traits\ApiResponses;
 use Illuminate\Support\ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    use ApiResponses;
+    
     /**
      * Register services.
      */
@@ -25,9 +28,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('order', function ($value) {
             $order = Order::find($value);
             if (!$order) {
-                return response()->json([
-                    'Message' => "order not found"
-                ], 404)->throwResponse();
+                return $this->error("order not found")
+                    ->throwResponse();
             }
             return $order;
         });
@@ -35,9 +37,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('product', function ($value) {
             $product = Product::find($value);
             if (!$product) {
-                return response()->json([
-                    'Message' => "Product not found"
-                ], 404)->throwResponse();
+                return $this->error("product not found")
+                    ->throwResponse();
             }
             return $product;
         });
