@@ -72,4 +72,24 @@ class ProductController extends Controller
             return $this->error($e->getMessage(), 400);
         }
     }
+
+    /**
+     * edits a product and its associated stock availability.
+     * 
+     * @param App\Http\Requests\StoreProductRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function edit(StoreProductRequest $request, Product $product){
+        try {
+            return DB::transaction(function () use ($request, $product) {
+                $product->update($request->only("name", "price"));
+                $product->stock()->update(["stock_quantity", $request->quantity]);
+
+                return $this->ok("OK");
+            });
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), 400);
+        }
+    }
 }

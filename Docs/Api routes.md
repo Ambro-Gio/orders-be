@@ -339,7 +339,7 @@ curl -X GET "<endpoint>" \
 }
 ```
 
-## Update an order
+## Edit an order
 
 **`PUT /api/orders/:orderId`**
 
@@ -462,6 +462,8 @@ curl -X GET "<endpoint>" \
 ## Remove a prodct from an existing order
 
 **`DELETE /api/orders/:orderId/products/:productId`**
+
+### Response
 
 **200 OK**
 
@@ -645,5 +647,35 @@ curl -X GET "<endpoint>" \
             "availableQuantity": 200
         }
     ]
+}
+```
+
+
+## Edit a product
+
+**`PUT /api/products/:productId`**
+
+### Request body
+
+| name      | type              | description                                     |
+| --------- | ----------------- | ------------------------------------------------| 
+| name      | string (max 255)  | product name                                    |
+| price     | numeric (min 0)   | product price                                   |
+| quantity  | integer (min 1)   | (optional) product stock quantity. Default is 0 |
+
+**200 OK**
+
+```json
+{
+    "message": "OK"
+}
+```
+
+**404 NOT FOUND**
+
+```json
+{
+    "error": "order not found",
+    "status": 404
 }
 ```
