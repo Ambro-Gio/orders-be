@@ -31,7 +31,7 @@ class IndexOrderRequest extends FormRequest
                 'date_format:Y-m-d\TH:i:s.u\Z',
                 'after:date_start'
             ],
-            'name' => ['bail', 'string'],
+            'name' => ['bail', 'string', 'max:255'],
             'description' => ['bail', 'string'],
         ];
     }

@@ -22,7 +22,7 @@ class UpdateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['bail', 'required', 'string'],
+            'name' => ['bail', 'required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
         ];
     }
