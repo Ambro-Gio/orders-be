@@ -59,7 +59,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         if ($order->user_id !== auth()->id())
-            return $this->error("unauthorized", 400);
+            return $this->error("unauthorized", 401);
 
         return new OrderResource($order->load('products'));
     }
@@ -121,7 +121,7 @@ class OrderController extends Controller
     public function update(StoreOrderRequest $request, Order $order)
     {
         if ($order->user_id !== auth()->id())
-            return $this->error("unauthorized", 400);
+            return $this->error("unauthorized", 401);
 
         $order->update($request->only(['name', 'description']));
         return $this->ok("OK");
@@ -139,7 +139,7 @@ class OrderController extends Controller
     {
 
         if ($order->user_id !== auth()->id())
-            return $this->error("unauthorized", 400);
+            return $this->error("unauthorized", 401);
 
         try {
             DB::transaction(function () use ($order, $request) {
@@ -186,7 +186,7 @@ class OrderController extends Controller
     {
 
         if ($order->user_id !== auth()->id())
-            return $this->error("unauthorized", 400);
+            return $this->error("unauthorized", 401);
 
         try {
             return DB::transaction(function () use ($order) {
@@ -217,7 +217,7 @@ class OrderController extends Controller
     public function deleteProduct(Order $order, Product $product)
     {
         if ($order->user_id !== auth()->id())
-            return $this->error("unauthorized", 400);
+            return $this->error("unauthorized", 401);
         
         try {
             DB::transaction(function () use ($order, $product) {
