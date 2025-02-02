@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IndexOrderRequest;
 use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Requests\AddProductRequest;
 use App\Models\Order;
 use App\Models\Stock;
@@ -78,7 +79,7 @@ class OrderController extends Controller
      * Accepts an optional array of products to be attached.
      * 
      * @param App\Http\Requests\StoreOrderRequest;
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreOrderRequest $request)
@@ -113,7 +114,7 @@ class OrderController extends Controller
      * 
      * @return \Illuminate\Http\JsonRespons
      */
-    public function update(StoreOrderRequest $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
         if ($order->user_id !== auth()->id())
             return $this->error("unauthorized", 401);
