@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html/app/Http</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/var/www/html/app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Http</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/UserController.php.html#11">App\Http\Controllers\UserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Middleware/checkUserRole.php.html#9">App\Http\Middleware\checkUserRole</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/EditProductRequest.php.html#7">App\Http\Requests\EditProductRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/StoreUserRequest.php.html#8">App\Http\Requests\StoreUserRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Resources/ProductCollection.php.html#8">App\Http\Resources\ProductCollection</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#17">App\Http\Controllers\OrderController</a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="Controllers/ProductController.php.html#15">App\Http\Controllers\ProductController</a></td><td class="text-right">81%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/OrderController.php.html#17">App\Http\Controllers\OrderController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#11">App\Http\Controllers\UserController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Middleware/checkUserRole.php.html#9">App\Http\Middleware\checkUserRole</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Requests/EditProductRequest.php.html#7">App\Http\Requests\EditProductRequest</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controllers/ProductController.php.html#15">App\Http\Controllers\ProductController</a></td><td class="text-right">8</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/UserController.php.html#23"><abbr title="App\Http\Controllers\UserController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Middleware/checkUserRole.php.html#16"><abbr title="App\Http\Middleware\checkUserRole::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/EditProductRequest.php.html#12"><abbr title="App\Http\Requests\EditProductRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/EditProductRequest.php.html#23"><abbr title="App\Http\Requests\EditProductRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/StoreUserRequest.php.html#13"><abbr title="App\Http\Requests\StoreUserRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/StoreUserRequest.php.html#23"><abbr title="App\Http\Requests\StoreUserRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Resources/ProductCollection.php.html#15"><abbr title="App\Http\Resources\ProductCollection::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#133"><abbr title="App\Http\Controllers\OrderController::addProduct">addProduct</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#154"><abbr title="App\Http\Controllers\OrderController::delete">delete</abbr></a></td><td class="text-right">54%</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#68"><abbr title="App\Http\Controllers\OrderController::show">show</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Controllers/ProductController.php.html#85"><abbr title="App\Http\Controllers\ProductController::update">update</abbr></a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#186"><abbr title="App\Http\Controllers\OrderController::deleteProduct">deleteProduct</abbr></a></td><td class="text-right">73%</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#116"><abbr title="App\Http\Controllers\OrderController::update">update</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#84"><abbr title="App\Http\Controllers\OrderController::store">store</abbr></a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#36"><abbr title="App\Http\Controllers\OrderController::index">index</abbr></a></td><td class="text-right">77%</td></tr>
+       <tr><td><a href="Controllers/ProductController.php.html#59"><abbr title="App\Http\Controllers\ProductController::store">store</abbr></a></td><td class="text-right">80%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/UserController.php.html#23"><abbr title="App\Http\Controllers\UserController::store">store</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Middleware/checkUserRole.php.html#16"><abbr title="App\Http\Middleware\checkUserRole::handle">handle</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Requests/EditProductRequest.php.html#12"><abbr title="App\Http\Requests\EditProductRequest::authorize">authorize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#154"><abbr title="App\Http\Controllers\OrderController::delete">delete</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#186"><abbr title="App\Http\Controllers\OrderController::deleteProduct">deleteProduct</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#133"><abbr title="App\Http\Controllers\OrderController::addProduct">addProduct</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#84"><abbr title="App\Http\Controllers\OrderController::store">store</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controllers/ProductController.php.html#59"><abbr title="App\Http\Controllers\ProductController::store">store</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#68"><abbr title="App\Http\Controllers\OrderController::show">show</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/ProductController.php.html#85"><abbr title="App\Http\Controllers\ProductController::update">update</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/OrderController.php.html#116"><abbr title="App\Http\Controllers\OrderController::update">update</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.8</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.2</a> and <a href="https://phpunit.de/">PHPUnit 11.5.3</a> at Sun Feb 2 22:49:05 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js?v=11.0.8" type="text/javascript"></script>
+  <script src="../_js/d3.min.js?v=11.0.8" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js?v=11.0.8" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([5,0,0,0,0,0,0,0,1,1,0,12], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([7,0,0,0,0,0,2,1,5,1,0,21], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,0,"<a href=\"Controllers\/Controller.php.html#5\">App\\Http\\Controllers\\Controller<\/a>"],[70.4225352112676,20,"<a href=\"Controllers\/OrderController.php.html#17\">App\\Http\\Controllers\\OrderController<\/a>"],[81.81818181818183,8,"<a href=\"Controllers\/ProductController.php.html#15\">App\\Http\\Controllers\\ProductController<\/a>"],[0,3,"<a href=\"Controllers\/UserController.php.html#11\">App\\Http\\Controllers\\UserController<\/a>"],[0,3,"<a href=\"Middleware\/checkUserRole.php.html#9\">App\\Http\\Middleware\\checkUserRole<\/a>"],[100,2,"<a href=\"Requests\/AddProductRequest.php.html#7\">App\\Http\\Requests\\AddProductRequest<\/a>"],[0,3,"<a href=\"Requests\/EditProductRequest.php.html#7\">App\\Http\\Requests\\EditProductRequest<\/a>"],[100,2,"<a href=\"Requests\/IndexOrderRequest.php.html#7\">App\\Http\\Requests\\IndexOrderRequest<\/a>"],[100,2,"<a href=\"Requests\/StoreOrderRequest.php.html#8\">App\\Http\\Requests\\StoreOrderRequest<\/a>"],[100,3,"<a href=\"Requests\/StoreProductRequest.php.html#7\">App\\Http\\Requests\\StoreProductRequest<\/a>"],[0,2,"<a href=\"Requests\/StoreUserRequest.php.html#8\">App\\Http\\Requests\\StoreUserRequest<\/a>"],[100,2,"<a href=\"Requests\/UpdateOrderRequest.php.html#7\">App\\Http\\Requests\\UpdateOrderRequest<\/a>"],[100,3,"<a href=\"Requests\/UpdateProductRequest.php.html#7\">App\\Http\\Requests\\UpdateProductRequest<\/a>"],[100,1,"<a href=\"Resources\/AvailableProductCollection.php.html#8\">App\\Http\\Resources\\AvailableProductCollection<\/a>"],[100,1,"<a href=\"Resources\/AvailableProductResource.php.html#8\">App\\Http\\Resources\\AvailableProductResource<\/a>"],[100,1,"<a href=\"Resources\/OrderCollection.php.html#8\">App\\Http\\Resources\\OrderCollection<\/a>"],[100,1,"<a href=\"Resources\/OrderResource.php.html#8\">App\\Http\\Resources\\OrderResource<\/a>"],[0,1,"<a href=\"Resources\/ProductCollection.php.html#8\">App\\Http\\Resources\\ProductCollection<\/a>"],[100,1,"<a href=\"Resources\/ProductResource.php.html#8\">App\\Http\\Resources\\ProductResource<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Controllers\/OrderController.php.html#24\">App\\Http\\Controllers\\OrderController::__construct<\/a>"],[77.77777777777779,1,"<a href=\"Controllers\/OrderController.php.html#36\">App\\Http\\Controllers\\OrderController::index<\/a>"],[66.66666666666666,2,"<a href=\"Controllers\/OrderController.php.html#68\">App\\Http\\Controllers\\OrderController::show<\/a>"],[76.92307692307693,3,"<a href=\"Controllers\/OrderController.php.html#84\">App\\Http\\Controllers\\OrderController::store<\/a>"],[75,2,"<a href=\"Controllers\/OrderController.php.html#116\">App\\Http\\Controllers\\OrderController::update<\/a>"],[50,3,"<a href=\"Controllers\/OrderController.php.html#133\">App\\Http\\Controllers\\OrderController::addProduct<\/a>"],[54.54545454545454,4,"<a href=\"Controllers\/OrderController.php.html#154\">App\\Http\\Controllers\\OrderController::delete<\/a>"],[73.33333333333333,4,"<a href=\"Controllers\/OrderController.php.html#186\">App\\Http\\Controllers\\OrderController::deleteProduct<\/a>"],[100,1,"<a href=\"Controllers\/ProductController.php.html#22\">App\\Http\\Controllers\\ProductController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/ProductController.php.html#32\">App\\Http\\Controllers\\ProductController::index<\/a>"],[100,1,"<a href=\"Controllers\/ProductController.php.html#46\">App\\Http\\Controllers\\ProductController::show<\/a>"],[80,3,"<a href=\"Controllers\/ProductController.php.html#59\">App\\Http\\Controllers\\ProductController::store<\/a>"],[71.42857142857143,2,"<a href=\"Controllers\/ProductController.php.html#85\">App\\Http\\Controllers\\ProductController::update<\/a>"],[0,3,"<a href=\"Controllers\/UserController.php.html#23\">App\\Http\\Controllers\\UserController::store<\/a>"],[0,3,"<a href=\"Middleware\/checkUserRole.php.html#16\">App\\Http\\Middleware\\checkUserRole::handle<\/a>"],[100,1,"<a href=\"Requests\/AddProductRequest.php.html#12\">App\\Http\\Requests\\AddProductRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/AddProductRequest.php.html#22\">App\\Http\\Requests\\AddProductRequest::rules<\/a>"],[0,2,"<a href=\"Requests\/EditProductRequest.php.html#12\">App\\Http\\Requests\\EditProductRequest::authorize<\/a>"],[0,1,"<a href=\"Requests\/EditProductRequest.php.html#23\">App\\Http\\Requests\\EditProductRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/IndexOrderRequest.php.html#12\">App\\Http\\Requests\\IndexOrderRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/IndexOrderRequest.php.html#22\">App\\Http\\Requests\\IndexOrderRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/StoreOrderRequest.php.html#13\">App\\Http\\Requests\\StoreOrderRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/StoreOrderRequest.php.html#23\">App\\Http\\Requests\\StoreOrderRequest::rules<\/a>"],[100,2,"<a href=\"Requests\/StoreProductRequest.php.html#12\">App\\Http\\Requests\\StoreProductRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/StoreProductRequest.php.html#23\">App\\Http\\Requests\\StoreProductRequest::rules<\/a>"],[0,1,"<a href=\"Requests\/StoreUserRequest.php.html#13\">App\\Http\\Requests\\StoreUserRequest::authorize<\/a>"],[0,1,"<a href=\"Requests\/StoreUserRequest.php.html#23\">App\\Http\\Requests\\StoreUserRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/UpdateOrderRequest.php.html#12\">App\\Http\\Requests\\UpdateOrderRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/UpdateOrderRequest.php.html#22\">App\\Http\\Requests\\UpdateOrderRequest::rules<\/a>"],[100,2,"<a href=\"Requests\/UpdateProductRequest.php.html#12\">App\\Http\\Requests\\UpdateProductRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/UpdateProductRequest.php.html#23\">App\\Http\\Requests\\UpdateProductRequest::rules<\/a>"],[100,1,"<a href=\"Resources\/AvailableProductCollection.php.html#15\">App\\Http\\Resources\\AvailableProductCollection::toArray<\/a>"],[100,1,"<a href=\"Resources\/AvailableProductResource.php.html#15\">App\\Http\\Resources\\AvailableProductResource::toArray<\/a>"],[100,1,"<a href=\"Resources\/OrderCollection.php.html#15\">App\\Http\\Resources\\OrderCollection::toArray<\/a>"],[100,1,"<a href=\"Resources\/OrderResource.php.html#15\">App\\Http\\Resources\\OrderResource::toArray<\/a>"],[0,1,"<a href=\"Resources\/ProductCollection.php.html#15\">App\\Http\\Resources\\ProductCollection::toArray<\/a>"],[100,1,"<a href=\"Resources\/ProductResource.php.html#15\">App\\Http\\Resources\\ProductResource::toArray<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
