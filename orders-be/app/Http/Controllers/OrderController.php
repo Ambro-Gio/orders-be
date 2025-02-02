@@ -7,7 +7,6 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Requests\AddProductRequest;
 use App\Models\Order;
-use App\Models\Stock;
 use App\Services\OrderService;
 use App\Traits\ApiResponses;
 use App\Http\Resources\OrderCollection;

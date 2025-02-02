@@ -153,7 +153,7 @@ class ProductControllerTest extends TestCase
                 "products" => [$product]
             ]
         )
-            ->assertOk()
+            ->assertCreated()
             ->assertJsonStructure(
                 [
                     "data" => [
