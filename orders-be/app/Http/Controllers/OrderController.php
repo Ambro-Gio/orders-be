@@ -7,6 +7,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\AddProductRequest;
 use App\Models\Order;
 use App\Models\Stock;
+use App\Services\OrderService;
 use App\Traits\ApiResponses;
 use App\Http\Resources\OrderCollection;
 use App\Http\Resources\OrderResource;
@@ -16,6 +17,14 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     use ApiResponses;
+
+    protected OrderService $orderService;
+
+    //ProductService injection
+    public function __construct(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -87,21 +96,7 @@ class OrderController extends Controller
                 }
 
                 // Attach products if provided
-                $products = collect($request->products)->mapWithKeys(function ($product) {
-
-                    // Trying to decrement stock quantity by the requested quantiy -> failure means insufficient stock, transaction is aborted.
-                    // This ensures correct functionality against race conditions.
-                    $updatedRows = Stock::where('product_id', $product['ID'])
-                        ->where('stock_quantity', '>=', $product['quantity'])
-                        ->decrement('stock_quantity', $product['quantity']);
-
-                    if ($updatedRows === 0) {
-                        throw new \Exception("Insufficient stock for product ID: {$product['ID']}");
-                    }
-
-                    return [$product['ID'] => ['quantity' => $product['quantity']]];
-                });
-                $order->products()->attach($products);
+                $order = $this->orderService->addProductsToOrder($order, $request->products);
 
                 return new OrderResource($order->load('products'));
             });
@@ -142,33 +137,7 @@ class OrderController extends Controller
             return $this->error("unauthorized", 401);
 
         try {
-            DB::transaction(function () use ($order, $request) {
-
-                $products = collect($request->products)->mapWithKeys(function ($product) use ($order) {
-
-                    // Check if the product exists in the order
-                    $pivotRow = $order->products()
-                        ->where('product_id', $product["ID"])
-                        ->first();
-
-                    if ($pivotRow) {
-                        throw new \Exception("Product ID: {$product["ID"]} is already in the order");
-                    }
-
-                    // Trying to decrement stock quantity by the requested quantiy -> failure means insufficient stock, transaction is aborted.
-                    // This ensures correct functionality against race conditions.
-                    $updatedRows = Stock::where('product_id', $product['ID'])
-                        ->where('stock_quantity', '>=', $product['quantity'])
-                        ->decrement('stock_quantity', $product['quantity']);
-
-                    if ($updatedRows === 0) {
-                        throw new \Exception("Insufficient stock for product ID: {$product['ID']}");
-                    }
-
-                    return [$product['ID'] => ['quantity' => $product['quantity']]];
-                });
-                $order->products()->attach($products);
-            });
+            $order = $this->orderService->addProductsToOrder($order, $request->products);
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), 400);
         }
