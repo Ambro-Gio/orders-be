@@ -262,7 +262,7 @@ curl -X GET "<endpoint>" \
 
 ### Response
 
-**200 - OK**
+**201 - CREATED**
 | name                 | type              | description                                    |
 | -------------------- | ----------------- | ---------------------------------------------- |
 | data                 | object            | created order details                          |
@@ -631,7 +631,7 @@ curl -X GET "<endpoint>" \
 
 ### Response
 
-**200 - OK**
+**201 - CREATED**
 
 | name              | type    | description                 |
 | ----------------- | ------- | --------------------------- |

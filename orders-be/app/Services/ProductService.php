@@ -15,7 +15,6 @@ class ProductService
      */
     public function createProduct(array $productData): Product
     {
-        return DB::transaction(function () use ($productData) {
             $product = Product::create([
                 "name" => $productData["name"],
                 "price" => $productData["price"],
@@ -27,6 +26,5 @@ class ProductService
             ]);
 
             return $product;
-        });
     }
 }

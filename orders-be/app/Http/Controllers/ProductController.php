@@ -66,7 +66,9 @@ class ProductController extends Controller
                     $createdProducts[] = $this->productService->createProduct($data);
                 }
 
-                return new AvailableProductCollection($createdProducts);
+                return (new AvailableProductCollection($createdProducts))
+                    ->response()
+                    ->setStatusCode(201);
             });
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), 400);
@@ -80,7 +82,8 @@ class ProductController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateProductRequest $request, Product $product){
+    public function update(UpdateProductRequest $request, Product $product)
+    {
         try {
             return DB::transaction(function () use ($request, $product) {
                 $product->update($request->only("name", "price"));
