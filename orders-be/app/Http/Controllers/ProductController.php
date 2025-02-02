@@ -80,11 +80,11 @@ class ProductController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function edit(StoreProductRequest $request, Product $product){
+    public function update(UpdateProductRequest $request, Product $product){
         try {
             return DB::transaction(function () use ($request, $product) {
                 $product->update($request->only("name", "price"));
-                $product->stock()->update(["stock_quantity", $request->quantity]);
+                $product->stock()->update(["stock_quantity" => $request->quantity]);
 
                 return $this->ok("OK");
             });
