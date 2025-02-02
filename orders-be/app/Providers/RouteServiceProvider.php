@@ -34,13 +34,13 @@ class RouteServiceProvider extends ServiceProvider
             return $order;
         });
 
-        Route::bind('product', function ($value) {
-            $product = Product::find($value);
-            if (!$product) {
-                return $this->error("product not found")
-                    ->throwResponse();
-            }
-            return $product;
-        });
+        // Route::bind('product', function ($value) {
+        //     $product = Product::find($value);
+        //     if (!$product) {
+        //         return $this->error("product not found")
+        //             ->throwResponse();
+        //     }
+        //     return $product;
+        // });
     }
 }
