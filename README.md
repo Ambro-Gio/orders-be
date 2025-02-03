@@ -3,7 +3,8 @@ Backend system to monitor and manage daily user orders
 
 # Setup guide
 
-The project is ready to be run using laravel sail. Docker and a linux-like machine are required.
+The project is ready to be run using laravel Sail, a built-in solution provided by Laravel to run the application using Docker.
+Docker Desktop is required. On Widows machines, WSL2 (Windows Subsystem for Linux) needs to be installed and enabled.
 
 ## 1. Clone the repository
 
