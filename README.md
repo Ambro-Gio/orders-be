@@ -75,3 +75,7 @@ The report can also be generated as a html document
 ./vendor/bin/sail phpunit --coverage-html tests/coverage
 
 ```
+
+# Documentation
+
+A documentation for the orders-be Api can be found [here](Docs/Api%20routes.md)
